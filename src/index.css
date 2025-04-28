@@ -82,11 +82,11 @@
 }
 
 .status-good {
-  @apply text-success-DEFAULT flex items-center gap-1;
+  @apply text-green-600 flex items-center gap-1;
 }
 
 .status-bad {
-  @apply text-danger-DEFAULT flex items-center gap-1;
+  @apply text-red-600 flex items-center gap-1;
 }
 
 .status-indicator {
@@ -94,9 +94,9 @@
 }
 
 .status-indicator-good {
-  @apply bg-success-DEFAULT;
+  @apply bg-green-600;
 }
 
 .status-indicator-bad {
-  @apply bg-danger-DEFAULT;
+  @apply bg-red-600;
 }
