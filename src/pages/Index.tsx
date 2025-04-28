@@ -1,15 +1,21 @@
-
 import { useState } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { SearchForm } from "@/components/search-form";
 import { ResultTabs } from "@/components/result-tabs";
 import { Button } from "@/components/ui/button";
+import { MatrixRain } from "@/components/matrix-rain";
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 
 const Index = () => {
-  const [isAnalyzed, setIsAnalyzed] = useState(true); // Set to true to show results by default
+  const [isAnalyzed, setIsAnalyzed] = useState(true);
 
-  // Sample data based on the provided information for elvescore.jp
   const sampleData = {
     generalInfo: {
       serverLocation: "M4M, トロント, オンタリオ, カナダ",
@@ -108,13 +114,13 @@ const Index = () => {
   };
 
   const handleSearch = (domain: string) => {
-    // In a real application, this would trigger an API call
     console.log(`Analyzing domain: ${domain}`);
     setIsAnalyzed(true);
   };
 
   return (
     <ThemeProvider defaultTheme="system" storageKey="elves-theme-preference">
+      <MatrixRain />
       <div className="min-h-screen flex flex-col">
         <header className="border-b border-border sticky top-0 z-10 bg-background/80 backdrop-blur-md">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -124,15 +130,12 @@ const Index = () => {
                 alt="Cyber Crew Logo" 
                 className="h-8"
               />
-              <div>
-                <h1 className="text-xl font-bold text-tiffany">Elves Core</h1>
-                <p className="text-xs text-muted-foreground">ウェブセキュリティ分析</p>
-              </div>
+              <p className="text-xs text-muted-foreground">Web Security Scanner</p>
             </div>
             <div className="flex items-center gap-4">
               <div className="hidden md:flex gap-4">
-                <Button variant="ghost">機能</Button>
-                <Button variant="ghost">情報</Button>
+                <Button variant="ghost">Features</Button>
+                <Button variant="ghost">About</Button>
                 <Button variant="ghost">GitHub</Button>
               </div>
               <ThemeToggle />
@@ -144,10 +147,10 @@ const Index = () => {
           <section className="py-12 bg-gradient-to-b from-background to-secondary/20">
             <div className="container mx-auto px-4 text-center">
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                高度な<span className="text-tiffany">ウェブセキュリティ</span>スキャナー
+                Advanced <span className="text-tiffany">Web Security</span> Scanner
               </h2>
               <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Elves Coreはドメインの包括的なセキュリティ分析を提供します — SSL、DNS、ヘッダー、その他多くの情報を含みます。
+                Comprehensive security analysis for your domain — including SSL, DNS, headers, and much more.
               </p>
               <div className="flex justify-center">
                 <SearchForm 
@@ -163,18 +166,25 @@ const Index = () => {
               <div className="container mx-auto px-4">
                 <div className="bg-card border border-border rounded-lg p-6 shadow-md">
                   <div className="mb-8 flex items-center justify-between">
-                    <div>
-                      <h2 className="text-2xl font-bold mb-2">elvescore.jp の分析結果</h2>
-                      <p className="text-muted-foreground">
-                        最終スキャン: 2025年2月20日
-                      </p>
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-2xl font-bold">Analysis Results for elvescore.jp</h2>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Info className="h-4 w-4 text-muted-foreground" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Detailed security analysis and technical information about the domain</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="bg-success-DEFAULT/20 text-success-DEFAULT px-3 py-1 rounded-full text-sm">
-                        ✅ オンライン
+                      <div className="bg-green-500/20 text-green-500 px-3 py-1 rounded-full text-sm">
+                        ✅ Online
                       </div>
                       <Button variant="outline" size="sm">
-                        結果をエクスポート
+                        Export Results
                       </Button>
                     </div>
                   </div>
@@ -190,17 +200,17 @@ const Index = () => {
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-sm text-muted-foreground">
-                © 2025 Elves Core. All rights reserved.
+                © 2025 Cyber Crew. All rights reserved.
               </p>
               <div className="flex gap-4 mt-4 md:mt-0">
                 <a href="#" className="text-muted-foreground hover:text-foreground text-sm">
-                  プライバシーポリシー
+                  Privacy Policy
                 </a>
                 <a href="#" className="text-muted-foreground hover:text-foreground text-sm">
-                  利用規約
+                  Terms of Use
                 </a>
                 <a href="#" className="text-muted-foreground hover:text-foreground text-sm">
-                  お問い合わせ
+                  Contact
                 </a>
               </div>
             </div>

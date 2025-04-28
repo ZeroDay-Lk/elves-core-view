@@ -25,13 +25,13 @@ export function SearchForm({ onSubmit, defaultValue = "" }: SearchFormProps) {
     >
       <Input
         type="text"
-        placeholder="ドメインを入力してください (例: example.com)"
+        placeholder="Enter a domain (e.g., example.com)"
         value={domain}
         onChange={(e) => setDomain(e.target.value)}
         className="flex-1 bg-background"
       />
       <Button type="submit" className="bg-tiffany hover:bg-tiffany-dark">
-        分析
+        Analyze
       </Button>
     </form>
   );
