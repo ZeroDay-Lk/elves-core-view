@@ -20,9 +20,10 @@ export const MatrixRain = () => {
     const alphabet = [...katakana, ...latin, ...nums];
 
     const fontSize = 16;
-    const columns = canvas.width / fontSize;
+    const columns = Math.floor(canvas.width / fontSize);
 
-    const rainDrops = Array.from({ length: columns }).fill(1);
+    // Initialize rainDrops with numbers
+    const rainDrops: number[] = Array(columns).fill(1);
 
     const draw = () => {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
