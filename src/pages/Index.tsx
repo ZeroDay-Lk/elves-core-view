@@ -4,14 +4,12 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { SearchForm } from "@/components/search-form";
 import { ResultTabs } from "@/components/result-tabs";
 import { Button } from "@/components/ui/button";
-import { MatrixRain } from "@/components/matrix-rain";
-import { 
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const Index = () => {
   const [isAnalyzed, setIsAnalyzed] = useState(true);
@@ -120,7 +118,6 @@ const Index = () => {
 
   return (
     <ThemeProvider defaultTheme="system" storageKey="elves-theme-preference">
-      <MatrixRain />
       <div className="min-h-screen flex flex-col">
         <header className="border-b border-border sticky top-0 z-10 bg-background/80 backdrop-blur-md">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -168,16 +165,17 @@ const Index = () => {
                   <div className="mb-8 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <h2 className="text-2xl font-bold">Analysis Results for elvescore.jp</h2>
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <Info className="h-4 w-4 text-muted-foreground" />
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Detailed security analysis and technical information about the domain</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
+                      <Popover>
+                        <PopoverTrigger>
+                          <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <p className="text-sm">
+                            Detailed security analysis and technical information about the domain.
+                            This includes DNS records, SSL certificates, headers, and more.
+                          </p>
+                        </PopoverContent>
+                      </Popover>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="bg-green-500/20 text-green-500 px-3 py-1 rounded-full text-sm">

@@ -1,7 +1,5 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ResultCard, StatusItem, ListItem } from "@/components/result-card";
-import { Check, X } from "lucide-react";
 
 interface WebCheckResult {
   generalInfo: {
@@ -101,13 +99,33 @@ export function ResultTabs({ data }: { data: WebCheckResult }) {
       </TabsList>
       
       <TabsContent value="general" className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ResultCard title="一般情報">
-          <ListItem label="サーバーの場所" value={data.generalInfo.serverLocation} />
-          <ListItem label="国" value={data.generalInfo.country} />
-          <ListItem label="タイムゾーン" value={data.generalInfo.timezone} />
-          <ListItem label="言語" value={data.generalInfo.languages} />
-          <ListItem label="通貨" value={data.generalInfo.currency} />
-          <ListItem label="座標" value={data.generalInfo.coordinates} />
+        <ResultCard 
+          title="一般情報"
+          description="サーバーの位置情報、言語設定、タイムゾーンなどの基本的な情報です。">
+          <ListItem 
+            label="サーバーの場所" 
+            value={data.generalInfo.serverLocation}
+            description="サーバーの物理的な位置を示します。" />
+          <ListItem 
+            label="国" 
+            value={data.generalInfo.country}
+            description="サーバーが設置されている国を示します。" />
+          <ListItem 
+            label="タイムゾーン" 
+            value={data.generalInfo.timezone}
+            description="サーバーが設置されているタイムゾーンを示します。" />
+          <ListItem 
+            label="言語" 
+            value={data.generalInfo.languages}
+            description="サーバーが設置されている言語を示します。" />
+          <ListItem 
+            label="通貨" 
+            value={data.generalInfo.currency}
+            description="サーバーが設置されている通貨を示します。" />
+          <ListItem 
+            label="座標" 
+            value={data.generalInfo.coordinates}
+            description="サーバーの座標を示します。" />
         </ResultCard>
         
         <ResultCard title="ソーシャルタグ">
