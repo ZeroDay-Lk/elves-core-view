@@ -11,17 +11,8 @@ export const MatrixRain = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size to parent container size
-    const resizeCanvas = () => {
-      const parent = canvas.parentElement;
-      if (parent) {
-        canvas.width = parent.offsetWidth;
-        canvas.height = parent.offsetHeight;
-      }
-    };
-
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
     const katakana = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン'.split('');
     const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -30,6 +21,8 @@ export const MatrixRain = () => {
 
     const fontSize = 16;
     const columns = Math.floor(canvas.width / fontSize);
+
+    // Initialize rainDrops with numbers
     const rainDrops: number[] = Array(columns).fill(1);
 
     const draw = () => {
@@ -54,17 +47,13 @@ export const MatrixRain = () => {
     };
 
     const interval = setInterval(draw, 30);
-
-    return () => {
-      clearInterval(interval);
-      window.removeEventListener('resize', resizeCanvas);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute top-0 left-0 w-full h-full pointer-events-none"
+      className="fixed top-0 left-0 w-full h-full pointer-events-none opacity-20"
     />
   );
 };

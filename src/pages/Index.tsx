@@ -12,37 +12,31 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
-import Globe from '@/components/Globe';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 
 const Index = () => {
   const [isAnalyzed, setIsAnalyzed] = useState(true);
 
   const sampleData = {
     generalInfo: {
-      serverLocation: "M4M, Toronto, Ontario, Canada",
-      country: "Canada",
+      serverLocation: "M4M, トロント, オンタリオ, カナダ",
+      country: "カナダ",
       timezone: "America/Toronto",
       languages: "en-CA, fr-CA, iu",
-      currency: "Dollar (CAD)",
-      coordinates: "Latitude 43.6561, Longitude -79.3486",
+      currency: "ドル (CAD)",
+      coordinates: "緯度 43.6561, 経度 -79.3486",
     },
     sslCertificate: {
       subject: "elvescore.jp",
       issuer: "Google Trust Services",
       algorithm: "ANSI prime256v1 (NIST Curve P-256)",
-      expires: "June 28, 2025",
-      renewed: "March 30, 2025",
+      expires: "2025年6月28日",
+      renewed: "2025年3月30日",
       serial: "13618F38263FA3250E...",
       fingerprint: "32:39:...",
-      extendedKeyUsage: "TLS Web Server Authentication",
+      extendedKeyUsage: "TLS Web サーバー認証",
     },
     headers: {
-      contentType: "August 1, 2001",
+      contentType: "2001年8月1日",
       transferEncoding: "chunked",
       connection: "keep-alive",
       xPoweredBy: "Next.js",
@@ -64,19 +58,19 @@ const Index = () => {
     },
     security: {
       httpSecurityHeaders: {
-        csp: "False",
-        stp: "False",
-        xcto: "False",
-        xfo: "False",
-        xxp: "False",
+        csp: false,
+        stp: false,
+        xcto: false,
+        xfo: false,
+        xxp: false,
       },
-      hstsCheck: "False",
-      dnssec: "False",
-      firewall: "True",
-      securityTxt: "False",
+      hstsCheck: false,
+      dnssec: false,
+      firewall: true,
+      securityTxt: false,
     },
     serverInfo: {
-      status: "True",
+      status: true,
       responseTime: "565ms",
       openPorts: ["80", "443", "8080"],
       closedPorts: [
@@ -95,26 +89,26 @@ const Index = () => {
       description: "A Global Team of ...",
     },
     archiveHistory: {
-      firstScan: "February 23, 2024",
-      lastScan: "February 20, 2025",
-      totalScans: "32",
-      changeCount: "30",
-      avgSize: "27458 bytes",
-      avgDaysBetweenScans: "11.33",
+      firstScan: "2024年2月23日",
+      lastScan: "2025年2月20日",
+      totalScans: 32,
+      changeCount: 30,
+      avgSize: "27458バイト",
+      avgDaysBetweenScans: 11.33,
     },
     redirects: {
-      count: "2",
+      count: 2,
     },
     threats: {
-      phishingStatus: "True",
-      malwareStatus: "True",
+      phishingStatus: true,
+      malwareStatus: true,
     },
     blockLists: {
-      blocked: "False",
+      blocked: false,
     },
     carbonFootprint: {
-      initialSize: "2.265 bytes",
-      co2ForInitialLoad: "0.0007552 grams",
+      initialSize: "2.265バイト",
+      co2ForInitialLoad: "0.0007552グラム",
       energyUsageForLoad: "0.000001709 KMg",
     },
   };
@@ -126,6 +120,7 @@ const Index = () => {
 
   return (
     <ThemeProvider defaultTheme="system" storageKey="elves-theme-preference">
+      <MatrixRain />
       <div className="min-h-screen flex flex-col">
         <header className="border-b border-border sticky top-0 z-10 bg-background/80 backdrop-blur-md">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -149,9 +144,14 @@ const Index = () => {
         </header>
 
         <main className="flex-1">
-          <section className="relative py-12 bg-gradient-to-b from-background to-secondary/20 overflow-hidden">
-            <MatrixRain />
-            <div className="container mx-auto px-4 text-center relative z-10">
+          <section className="py-12 bg-gradient-to-b from-background to-secondary/20">
+            <div className="container mx-auto px-4 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Advanced <span className="text-tiffany">Web Security</span> Scanner
+              </h2>
+              <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Comprehensive security analysis for your domain — including SSL, DNS, headers, and much more.
+              </p>
               <div className="flex justify-center">
                 <SearchForm 
                   onSubmit={handleSearch} 
@@ -189,292 +189,7 @@ const Index = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">General Information</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.generalInfo).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground">{key}</span>
-                            <span className="flex items-center">
-                              {value}
-                              {key === 'country' && (
-                                <Globe coordinates={{ lat: 43.6561, lng: -79.3486 }} />
-                              )}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">SSL Certificate</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.sslCertificate).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              {key}
-                              <Popover>
-                                <PopoverTrigger>
-                                  <Info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                  <p className="text-sm">Information about {key}</p>
-                                </PopoverContent>
-                              </Popover>
-                            </span>
-                            <span>{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">Headers</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.headers).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              {key}
-                              <Popover>
-                                <PopoverTrigger>
-                                  <Info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                  <p className="text-sm">Information about {key}</p>
-                                </PopoverContent>
-                              </Popover>
-                            </span>
-                            <span>{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">DNS Records</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.dnsRecords).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              {key}
-                              <Popover>
-                                <PopoverTrigger>
-                                  <Info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                  <p className="text-sm">Information about {key}</p>
-                                </PopoverContent>
-                              </Popover>
-                            </span>
-                            <span>{Array.isArray(value) ? value.join(", ") : value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">Security</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.security).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              {key}
-                              <Popover>
-                                <PopoverTrigger>
-                                  <Info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                  <p className="text-sm">Information about {key}</p>
-                                </PopoverContent>
-                              </Popover>
-                            </span>
-                            <span>
-                              {typeof value === 'object' 
-                                ? Object.entries(value).map(([k, v]) => `${k}: ${v}`).join(', ') 
-                                : value}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">Server Info</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.serverInfo).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              {key}
-                              <Popover>
-                                <PopoverTrigger>
-                                  <Info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                  <p className="text-sm">Information about {key}</p>
-                                </PopoverContent>
-                              </Popover>
-                            </span>
-                            <span>{Array.isArray(value) ? value.join(", ") : value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">Cookies</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.cookies).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              {key}
-                              <Popover>
-                                <PopoverTrigger>
-                                  <Info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                  <p className="text-sm">Information about {key}</p>
-                                </PopoverContent>
-                              </Popover>
-                            </span>
-                            <span>{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">Social Tags</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.socialTags).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              {key}
-                              <Popover>
-                                <PopoverTrigger>
-                                  <Info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                  <p className="text-sm">Information about {key}</p>
-                                </PopoverContent>
-                              </Popover>
-                            </span>
-                            <span>{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">Archive History</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.archiveHistory).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              {key}
-                              <Popover>
-                                <PopoverTrigger>
-                                  <Info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                  <p className="text-sm">Information about {key}</p>
-                                </PopoverContent>
-                              </Popover>
-                            </span>
-                            <span>{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">Redirects</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.redirects).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              {key}
-                              <Popover>
-                                <PopoverTrigger>
-                                  <Info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                  <p className="text-sm">Information about {key}</p>
-                                </PopoverContent>
-                              </Popover>
-                            </span>
-                            <span>{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">Threats</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.threats).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              {key}
-                              <Popover>
-                                <PopoverTrigger>
-                                  <Info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                  <p className="text-sm">Information about {key}</p>
-                                </PopoverContent>
-                              </Popover>
-                            </span>
-                            <span>{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">Block Lists</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.blockLists).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              {key}
-                              <Popover>
-                                <PopoverTrigger>
-                                  <Info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                  <p className="text-sm">Information about {key}</p>
-                                </PopoverContent>
-                              </Popover>
-                            </span>
-                            <span>{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-background/50 p-4 rounded-lg">
-                      <h3 className="text-lg font-semibold mb-4">Carbon Footprint</h3>
-                      <div className="space-y-2">
-                        {Object.entries(sampleData.carbonFootprint).map(([key, value]) => (
-                          <div key={key} className="flex items-center justify-between">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              {key}
-                              <Popover>
-                                <PopoverTrigger>
-                                  <Info className="h-3 w-3 text-muted-foreground cursor-pointer" />
-                                </PopoverTrigger>
-                                <PopoverContent>
-                                  <p className="text-sm">Information about {key}</p>
-                                </PopoverContent>
-                              </Popover>
-                            </span>
-                            <span>{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+                  <ResultTabs data={sampleData} />
                 </div>
               </div>
             </section>
