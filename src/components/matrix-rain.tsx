@@ -1,8 +1,10 @@
 
 import React, { useEffect, useRef } from 'react';
+import { useTheme } from "./theme-provider";
 
 export const MatrixRain = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -11,8 +13,17 @@ export const MatrixRain = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Set canvas size to match hero section
+    const updateCanvasSize = () => {
+      const heroSection = document.querySelector('section');
+      if (heroSection) {
+        canvas.width = heroSection.offsetWidth;
+        canvas.height = heroSection.offsetHeight;
+      }
+    };
+
+    updateCanvasSize();
+    window.addEventListener('resize', updateCanvasSize);
 
     const katakana = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン'.split('');
     const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -22,14 +33,17 @@ export const MatrixRain = () => {
     const fontSize = 16;
     const columns = Math.floor(canvas.width / fontSize);
 
-    // Initialize rainDrops with numbers
     const rainDrops: number[] = Array(columns).fill(1);
 
     const draw = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      // Adjust opacity and color based on theme
+      ctx.fillStyle = theme === 'dark' 
+        ? 'rgba(0, 0, 0, 0.05)' 
+        : 'rgba(255, 255, 255, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = '#10B9B0';
+      // Use theme-aware color
+      ctx.fillStyle = theme === 'dark' ? '#10B9B0' : '#0A8178';
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < rainDrops.length; i++) {
@@ -47,13 +61,18 @@ export const MatrixRain = () => {
     };
 
     const interval = setInterval(draw, 30);
-    return () => clearInterval(interval);
-  }, []);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('resize', updateCanvasSize);
+    };
+  }, [theme]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full pointer-events-none opacity-20"
+      className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20"
+      style={{ position: 'absolute', zIndex: 0 }}
     />
   );
 };
